@@ -2,16 +2,15 @@ const { Router } = require("express")
 
 const courseRouter = Router();
 
-courseRouter.post('/course/purchase', (req, res) => { //give user courses
+courseRouter.post('/purchase', (req, res) => { //give user courses
     res.json({
-        message: "Signin Endpoint"
+        message: "purchases"
     })
 })
 
-
-courseRouter.get('/course/preview', (req, res) => { //give all the courses
+courseRouter.get('/preview', (req, res) => { //give all the courses
     res.json({
-        message: "Signin Endpoint"
+        message: "course preview endpoint"
     })
 })
 
