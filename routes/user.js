@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcrypt")
 const { userModel } = require("../db");
 const jwt = require("jsonwebtoken")
 const Router = express.Router;
@@ -15,10 +16,12 @@ userRouter.post('/signup', async (req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
 
+    const hashedPass = await bcrypt.hash(password,3);
+
     try {
         await userModel.create({
             email: email,
-            password: password,
+            password: hashedPass,
             firstname: firstname,
             lastname: lastname
         })
@@ -40,16 +43,19 @@ userRouter.post('/signin',async (req, res) => {
     try {
         const user = await userModel.findOne({
             email: email,
-            password: password
         })
+
+        const passMatch = await bcrypt.compare(password, user.password)
+
+        console.log(passMatch)
 
         if (!user) {
             res.json("user not found")
             return
         }
 
-        if (user.email == email && user.password == password) {
-            const token = jwt.sign({ _id: user._id }, userSecret)
+        if (passMatch) {
+            const token = jwt.sign({ _id: user._id.toString() }, userSecret)
 
             res.json({
                 token: token,
@@ -68,7 +74,7 @@ userRouter.post('/signin',async (req, res) => {
 
 userRouter.get('/purchases', userMiddleware, (req, res) => { //give user courses
     res.json({
-        message: "What are the various causes for error in this field"
+        message: "What are the various causes for success in this field"
     })
 })
 

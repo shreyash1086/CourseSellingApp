@@ -1,5 +1,6 @@
 const { Router } = require("express")
 const { adminMiddleware } = require("../middleware/admin.js")
+const bcrypt = require("bcrypt")
 const adminRouter = Router();
 const { adminModel } = require("../db.js");
 const jwt = require("jsonwebtoken")
@@ -12,10 +13,12 @@ adminRouter.post('/signup', async (req, res) => {
     const lastname = req.body.lastname;
     const password = req.body.password;
 
+    const hashedPass = await bcrypt.hash(password,4)
+
     try {
         await adminModel.create({
             email: email,
-            password: password,
+            password: hashedPass,
             firstname: firstname,
             lastname: lastname
         })
@@ -39,17 +42,20 @@ adminRouter.post('/signin', async (req, res) => {
 
         const admin = await adminModel.findOne({
             email: email,
-            password: password
         })
+
+        const passMatch = await bcrypt.compare(password, admin.password)
+
+        console.log(passMatch)
 
         if (!admin) {
             res.json("admin not found")
             return
         }
 
-        if (admin.password == password && admin.email == email) {
+        if (passMatch) {
             const token = jwt.sign({ _id: admin._id.toString() }, SECRET);
-            
+
             res.json({
                 token:token,
                 message: "Signin End point Successfull"
