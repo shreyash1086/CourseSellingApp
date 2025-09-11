@@ -13,6 +13,7 @@ const userMiddleware =  async (req, res, next) => {
     if (user) {
         console.log(user)
         console.log("verified")
+        req.user_id = userId
         next()
     } else {
         res.status(403).json({

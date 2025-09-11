@@ -74,8 +74,7 @@ userRouter.post('/signin',async (req, res) => {
 
 userRouter.get('/purchases', userMiddleware, (req, res) => { //give user courses
 
-    // const courseId =
-    // const userId = 
+    const userId = req.user_id;
 
     res.json({
         message: "What are the various causes for success in this field"
