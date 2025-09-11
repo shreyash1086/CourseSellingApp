@@ -37,20 +37,19 @@ adminRouter.post('/signin', async (req, res) => {
 
     try {
 
-        const user = await adminModel.findOne({
+        const admin = await adminModel.findOne({
             email: email,
             password: password
         })
 
-        if (!user) {
+        if (!admin) {
             res.json("admin not found")
             return
         }
 
-        if (user.password == password && user.email == email) {
-            const token = jwt.sign({ _id: user._id.toString() }, SECRET);
-            // console.log(user._id)
-            localStorage.setItem("token", token);
+        if (admin.password == password && admin.email == email) {
+            const token = jwt.sign({ _id: admin._id.toString() }, SECRET);
+            
             res.json({
                 token:token,
                 message: "Signin End point Successfull"

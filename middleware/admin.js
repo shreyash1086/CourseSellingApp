@@ -5,7 +5,7 @@ const express = require("express")
 const {adminModel} = require("../db.js")
 
 async function adminMiddleware(req, res, next) {
-    const token = localStorage.getItem("token");
+    const token = body.headers.token;
     const decode = jwt.verify(token, adminSecret)
     const adminId = decode._id;
 

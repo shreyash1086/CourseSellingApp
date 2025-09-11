@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken")
 const {userModel} = require("../db.js")
 
 const userMiddleware =  async (req, res, next) => {
-    const token = localStorage.getItem("token");
+    const token = req.headers.token;
     const decode = jwt.verify(token, SECRET)
     const userId = decode._id;
     const user = await userModel.findById(userId)
