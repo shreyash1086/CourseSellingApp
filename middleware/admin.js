@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const adminSecret = process.env.SECRET;
+const adminSecret = process.env.SECRET_ADMIN;
 require('dotenv').config();
 const express = require("express")
 const {adminModel} = require("../db.js")

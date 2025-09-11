@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken")
 const Router = express.Router;
 require("dotenv").config();
 const {userMiddleware} = require("../middleware/user")
-const userSecret = process.env.SECRET;
+const userSecret = process.env.SECRET_USER;
 
 
 const userRouter = Router(); //instance of router class

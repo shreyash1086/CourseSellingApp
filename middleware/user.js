@@ -1,6 +1,6 @@
 const express = require("express")
 require('dotenv').config();
-const SECRET = process.env.SECRET;
+const SECRET = process.env.SECRET_USER;
 const jwt = require("jsonwebtoken")
 const {userModel} = require("../db.js")
 

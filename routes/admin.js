@@ -5,7 +5,7 @@ const adminRouter = Router();
 const { adminModel } = require("../db.js");
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
-const SECRET = process.env.SECRET;
+const SECRET = process.env.SECRET_ADMIN;
 
 adminRouter.post('/signup', async (req, res) => {
     const email = req.body.email;
