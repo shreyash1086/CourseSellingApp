@@ -3,6 +3,9 @@ const { Router } = require("express")
 const courseRouter = Router();
 
 courseRouter.post('/purchase', (req, res) => { //give user courses
+
+    
+
     res.json({
         message: "purchases"
     })

@@ -15,6 +15,7 @@ async function adminMiddleware(req, res, next) {
 
     if (admin) {
         console.log("verified")
+        req.admin_id = adminId
         next()
     } else {
         res.json({
