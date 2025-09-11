@@ -4,6 +4,8 @@ const Router = express.Router;
 const userRouter = Router(); //instance of router class
 
 userRouter.post('/signup', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
     res.json({
         message: "Signup Endpoint"
     })

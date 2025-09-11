@@ -1,7 +1,7 @@
 const express = require('express')
 require('dotenv').config();
 const mongo = process.env.MONGODB_URL;
-console.log(mongo)
+// console.log(mongo)
 const mongoose = require("mongoose")
 const { userRouter } = require("./routes/user");
 const { courseRouter } = require("./routes/course")
