@@ -1,6 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt")
-const { userModel } = require("../db");
+const { userModel, purchaseModel } = require("../db");
 const jwt = require("jsonwebtoken")
 const Router = express.Router;
 require("dotenv").config();
@@ -72,13 +72,24 @@ userRouter.post('/signin',async (req, res) => {
 })
 
 
-userRouter.get('/purchases', userMiddleware, (req, res) => { //give user courses
+userRouter.get('/purchases', userMiddleware, async (req, res) => { //give user courses
 
     const userId = req.user_id;
 
-    res.json({
-        message: "What are the various causes for success in this field"
-    })
+    try {
+        const userCourses = await purchaseModel.find({
+            userId: userId
+        })
+
+        res.json({
+            userCourses: userCourses,
+            message: "here is the list of all the courses you baught"
+        })
+    } catch (error) {
+        res.status(403).json({
+            message : "error at user purchases"
+        })
+    }
 })
 
 module.exports = {
